@@ -45,11 +45,13 @@ app.use('/api/files', fileRoutes)
 app.use('/api/terminal', terminalRoutes)
 // app.use('/api/preview', previewRoutes)
 
-app.use('/preview/:port/*', (req, res) => {
+app.use('/preview/:port', (req, res) => {
   const port = req.params.port;
   const target = `http://127.0.0.1:${port}`;
-  // rewrite path: remove /preview/:port
-  req.url = req.url.replace(`/preview/${port}`, '') || '/';
+
+  // Remove the /preview/:port prefix so the internal server sees just the file path
+  req.url = req.url.substring(`/preview/${port}`.length) || '/';
+
   previewProxy.web(req, res, { target }, (err) => {
     res.status(500).send('Preview not available');
   });
