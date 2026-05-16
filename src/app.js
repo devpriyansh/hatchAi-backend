@@ -44,19 +44,17 @@ app.use('/api/health', healthRoutes)
 app.use('/api/ai', aiRoutes)
 app.use('/api/files', fileRoutes)
 app.use('/api/terminal', terminalRoutes)
-// app.use('/api/preview', previewRoutes)
+app.use('/preview', previewRoutes)
 
-app.use('/preview/:port', (req, res) => {
+app.use('/preview/:port(\\d+)', (req, res) => {
   const port = req.params.port;
   const target = `http://127.0.0.1:${port}`;
-
-  // Remove the /preview/:port prefix so the internal server sees just the file path
   req.url = req.url.substring(`/preview/${port}`.length) || '/';
-
   previewProxy.web(req, res, { target }, (err) => {
     res.status(500).send('Preview not available');
   });
 });
+
 
 app.use('/api/ai2', ai_2Routes)
 app.use('/api/key', setApiKeyRoutes);
