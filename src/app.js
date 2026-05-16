@@ -30,7 +30,13 @@ app.use(cors({
 
 // app.use(helmet())
 app.use(helmet({
-  frameguard: false   // allow iframes from any origin
+  frameguard: false,
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      frameAncestors: ["'self'", "https://hatch-ai-frontend.vercel.app"],
+    },
+  },
 }))
 
 app.use(morgan('dev'))
