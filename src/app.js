@@ -24,7 +24,7 @@ const app = express()
 app.use(cors({
     // origin: process.env.FRONTEND_URL,
     // origin: 'http://localhost:5173',
-    origin: 'http://hatch-ai-frontend.vercel.app',
+    origin: 'https://hatch-ai-frontend.vercel.app',
     credentials:true
 }))
 
