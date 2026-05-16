@@ -52,7 +52,7 @@ const startStaticServer = async (workspacePath, io) => {
 
   return new Promise((resolve, reject) => {
     const server = app.listen(port, '127.0.0.1', () => {
-      const url = `http://localhost:${port}`;
+      const url = `http://hatch-ai-frontend.vercel.app:${port}`;
       activePreviews.set(workspacePath, { server, url });
 
       io.emit('preview:started', { previewUrl: url });
@@ -116,7 +116,7 @@ export const startPreviewServer = async (workspacePath, io) => {
   while (retries-- > 0) {
     const running = await isPortOpen(framework.defaultPort);
     if (running) {
-      const url = `http://localhost:${framework.defaultPort}`;
+      const url = `http://hatch-ai-frontend.vercel.app:${framework.defaultPort}`;
       // We don't have a server object here, but we store just the URL
       activePreviews.set(workspacePath, { url });
       io.emit('preview:started', { previewUrl: url });
