@@ -133,7 +133,16 @@ export const startPreviewServer = async (workspacePath, io) => {
 /**
  * Get the current preview URL (if any)
  */
+// export const getPreviewUrl = (workspacePath) => {
+//   const entry = activePreviews.get(workspacePath);
+//   return entry ? entry.url : null;
+// };
+
 export const getPreviewUrl = (workspacePath) => {
   const entry = activePreviews.get(workspacePath);
-  return entry ? entry.url : null;
+  if (entry && entry.port) {
+    // Return the proxy URL path so the frontend can reuse it
+    return `https://hatchai-backend.onrender.com/preview/${entry.port}`;
+  }
+  return null;
 };

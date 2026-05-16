@@ -28,7 +28,10 @@ app.use(cors({
     credentials:true
 }))
 
-app.use(helmet())
+// app.use(helmet())
+app.use(helmet({
+  frameguard: false   // allow iframes from any origin
+}))
 
 app.use(morgan('dev'))
 
